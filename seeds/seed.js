@@ -74,21 +74,33 @@ const votes = {
   },
 };
 
+// Postgres and SQLite store timestamps in different formats...
+function convertTimestamp(ts) {
+  if (process.env.NODE_ENV === 'production') {
+    return new Date(ts).toISOString();
+  }
+
+  return ts;
+}
+
 export function seed(knex, Promise) {
   return Promise.all([
     knex('entries').del(),
     knex('votes').del(),
+    knex('comments').del(),
   ])
 
   // Insert some entries for the repositories
   .then(() => {
     return Promise.all(repos.map(({ repository_name, posted_by }, i) => {
       return knex('entries').insert({
-        created_at: Date.now() - i * 10000,
-        updated_at: Date.now() - i * 10000,
+        created_at: convertTimestamp(Date.now() - i * 10000),
+        updated_at: convertTimestamp(Date.now() - i * 10000),
         repository_name,
         posted_by,
-      }).then(([id]) => {
+      })
+      .returning('id')
+      .then(([id]) => {
         repoIds[repository_name] = id;
       });
     }));

@@ -73,7 +73,11 @@ export class Entries {
     if (type === 'NEW') {
       query.orderBy('created_at', 'desc');
     } else if (type === 'TOP') {
-      query.orderBy('score', 'desc');
+      if (process.env.NODE_ENV === 'production') {
+        query.orderByRaw('score desc nulls last');
+      } else {
+        query.orderBy('score', 'desc');
+      }
     } else {
       throw new Error(`Feed type ${type} not implemented.`);
     }
@@ -83,6 +87,8 @@ export class Entries {
     }
 
     query.limit(limit);
+
+    console.log(query.toString());
 
     return formatRows(query);
   }

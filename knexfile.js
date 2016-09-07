@@ -9,4 +9,7 @@ module.exports = {
     },
     useNullAsDefault: true,
   },
+
+  // Don't complain if the file doesn't exist, if we aren't trying to run in prod
+  production: (process.env.NODE_ENV === 'production' && require('./prod-db.js')),
 };
