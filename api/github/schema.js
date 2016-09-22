@@ -36,6 +36,9 @@ type User {
 
   # The URL of this user's GitHub page
   html_url: String!
+
+  # The user's email if they have one
+  email: String
 }
 `];
 

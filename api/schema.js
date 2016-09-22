@@ -39,6 +39,11 @@ type Query {
 
   # Return the currently logged in user, or null if nobody is logged in
   currentUser: User
+
+  # Return the profile for the given user
+  user(
+    login: String!
+  ): User
 }
 
 # The type of vote to record, when submitting a vote
@@ -101,6 +106,9 @@ const rootResolvers = {
     currentUser(root, args, context) {
       return context.user || null;
     },
+    user(root, { login }, context) {
+      return context.Users.getByLogin(login);
+    }
   },
   Mutation: {
     submitRepository(root, { repoFullName }, context) {
