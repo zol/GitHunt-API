@@ -21,7 +21,7 @@ import schema from './schema';
 
 let PORT = 3010;
 if (process.env.PORT) {
-  PORT = parseInt(process.env.PORT, 10) + 100;
+  PORT = parseInt(process.env.PORT, 10);
 }
 
 const WS_PORT = process.env.WS_PORT || 8080;

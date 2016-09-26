@@ -12,7 +12,7 @@ Demonstrates:
 
 Please submit a pull request if you see anything that can be improved!
 
-## Running the server
+## Running the server locally
 
 1. **Install Node/npm.** Make sure you have Node.js 4 or newer installed.
 2. **Clone and install dependencies.**
@@ -53,3 +53,10 @@ Please submit a pull request if you see anything that can be improved!
   ```
 
 7. **Open the app.** Open http://localhost:3010/ to see what to do next.
+
+## Running the server on Heroku
+
+*Limitations:* This configuration is very limited and intended only as a quick way to deploy the Githunt API to the internet. Websockets won't work for subscriptions and since we're using SQLite, the database will be reset every time you re-deploy.
+
+1. Install the Heroku CLI tool, and by using the `config:set` command, set the `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` environment variables that you obtained for local development.
+2. Deploy the GitHunt API either by setting up a repository webhook or by using the Heroku CLI tool.
