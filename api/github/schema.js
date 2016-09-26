@@ -24,6 +24,9 @@ type Repository {
 
   # The owner of this repository on GitHub, e.g. apollostack
   owner: User
+
+  # The profile of the owner of this repository on GitHub (contains sensitive data such as email address)
+  ownerProfile: User
 }
 
 # A user object from the GitHub API. This uses the exact field names returned from the GitHub API.
@@ -45,5 +48,8 @@ type User {
 export const resolvers = {
   Repository: {
     owner: property('owner'),
+    ownerProfile: function(obj, args, context) {
+      return context.Users.getByLogin(obj.owner.login);
+    }
   },
 };
