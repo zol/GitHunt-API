@@ -9,7 +9,7 @@
     "seed": "knex seed:run",
     "migrate": "knex migrate:latest",
     "build": "babel api --out-dir build",
-    "postinstall": "npm run build && npm run seed && npm run migrate"
+    "postinstall": "npm run build && npm run migrate && npm run seed"
   },
   "private": true,
   "repository": {
